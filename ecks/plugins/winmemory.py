@@ -17,16 +17,19 @@
 
 """
 
+""" This is a plugin to be loaded by Ecks
+
+return a tuple containing (total_swap, avail_swap, total_real, avail_real). Values are in kiloBytes
+
+"""
+
+
 def _calc_size(block_size, block_count):
     return block_size * block_count
 
+
 def get_winmemory(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    return a tuple containing (total_swap, avail_swap, total_real, avail_real). Values are in kiloBytes
-
-    """
-    blocks = (1,3,6,1,2,1,25,2,3,1) # HOST-RESOURCES-MIB
+    blocks = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB
     data = parent.get_snmp_data(host, community, blocks, 1)
 
     if not data:

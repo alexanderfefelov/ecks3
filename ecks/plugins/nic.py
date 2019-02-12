@@ -1,5 +1,5 @@
 """
-    Ecks plugin to collect network interface information
+   Ecks plugin to collect network interface information
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
 
@@ -16,21 +16,23 @@
    limitations under the License.
 """
 
+""" This is a plugin to be loaded by Ecks
+
+Info on the data returned is available at http://www.oidview.com/mibs/0/IF-MIB.html
+
+return an array of tuples containing (name, type, mtu, speed, mac, admin_status, oper_status,
+    last_changed, in_bytes, in_u_pkts, in_nu_pkts, in_discard, in_err, in_unknown,
+    out_bytes, out_u_pkts, out_nu_pkts, out_discard, out_err, out_queue) for each ethernet interface
+
+The type return value is an integer that can be looked up at http://www.iana.org/assignments/ianaiftype-mib
+
+Most common type is 6 (ethernet)
+
+"""
+
+
 def get_nic(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    Info on the data returned is available at http://www.oidview.com/mibs/0/IF-MIB.html
-
-    return an array of tuples containing (name, type, mtu, speed, mac, admin_status, oper_status,
-        last_changed, in_bytes, in_u_pkts, in_nu_pkts, in_discard, in_err, in_unknown,
-        out_bytes, out_u_pkts, out_nu_pkts, out_discard, out_err, out_queue) for each ethernet interface
-
-    The type return value is an integer that can be looked up at http://www.iana.org/assignments/ianaiftype-mib
-
-    Most common type is 6 (ethernet)
-
-    """
-    nics = (1,3,6,1,2,1,2,2,1) # IF-MIB
+    nics = (1, 3, 6, 1, 2, 1, 2, 2, 1)  # IF-MIB
     data = parent.get_snmp_data(host, community, nics, 1)
 
     return map(parent._build_answer,

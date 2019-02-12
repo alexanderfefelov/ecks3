@@ -17,18 +17,22 @@
 
 """
 
+""" This is a plugin to be loaded by Ecks
+
+return an array of tuples containing (name, value) for each measured interval (normally 1, 5 and 15 minutes)
+
+name is the description of the interval returned by the host
+
+value is a python Decimal (see decimal module) containing the floating point representation of the load average
+
+"""
+
+
 from decimal import Decimal
 
+
 def get_loadavg(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    return an array of tuples containing (name, value) for each measured interval (normally 1, 5 and 15 minutes)
-
-    name is the description of the interval returned by the host
-    
-    value is a python Decimal (see decimal module) containing the floating point representation of the load average
-    """
-    load = (1,3,6,1,4,1,2021,10,1) # UCD-SNMP-MIB
+    load = (1, 3, 6, 1, 4, 1, 2021, 10, 1)  # UCD-SNMP-MIB
     data = parent.get_snmp_data(host, community, load, 1)
     return map(parent._build_answer,
         parent._extract(data, str, 2),

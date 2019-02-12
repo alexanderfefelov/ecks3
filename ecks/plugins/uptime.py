@@ -17,23 +17,26 @@
 
 """
 
+""" This is a plugin to be loaded by Ecks
+
+return the number of TimeTicks (100ths of a second) since the system was booted
+
+Note: This plugin now corrects the bad uptime value returned in
+      Windows builds < 7600 (Win 2008 R2)
+      
+      See the following for more info:
+        http://fixunix.com/snmp/64367-re-interpreting-hrsystemuptime.html
+        http://forums.cacti.net/about22137.html&highlight=
+        http://web.archiveorange.com/archive/v/WnPpStN7UOuJhcUk5J0T
+
+"""
+
+
 import re
 
+
 def get_uptime(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    return the number of TimeTicks (100ths of a second) since the system was booted
-
-    Note: This plugin now corrects the bad uptime value returned in
-          Windows builds < 7600 (Win 2008 R2)
-          
-          See the following for more info:
-            http://fixunix.com/snmp/64367-re-interpreting-hrsystemuptime.html
-            http://forums.cacti.net/about22137.html&highlight=
-            http://web.archiveorange.com/archive/v/WnPpStN7UOuJhcUk5J0T
-
-    """
-    uptime = (1,3,6,1,2,1,25,1,1) # HOST-RESOURCE-MIB
+    uptime = (1, 3, 6, 1, 2, 1, 25, 1, 1)  # HOST-RESOURCE-MIB
     data = parent.get_snmp_data(host, community, uptime, 1)
 
     if data:
@@ -46,4 +49,3 @@ def get_uptime(parent, host, community):
             return int(data[0][2])
     else:
         return None
-

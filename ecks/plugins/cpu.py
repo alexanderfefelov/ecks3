@@ -17,13 +17,15 @@
 
 """
 
+""" This is a plugin to be loaded by Ecks
+
+return a tuple containing (cpu_user, cpu_sys, cpu_idle) in percent
+
+"""
+
+
 def get_cpu(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    return a tuple containing (cpu_user, cpu_sys, cpu_idle) in percent
-
-    """
-    cpu = (1,3,6,1,4,1,2021,11) # UCD-SNMP-MIB
+    cpu = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB
     data = parent.get_snmp_data(host, community, cpu, 1)
 
     if data:

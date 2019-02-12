@@ -17,15 +17,16 @@
 
 """
 
-from pprint import pprint
+""" This is a plugin to be loaded by Ecks
+
+return the host operating system info
+
+"""
+
 
 def get_os(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    return the host operating system info
-    """
-    os = (1,3,6,1,2,1,1,1) # HOST-RESOURCE-MIB
-    data = parent.get_snmp_data(host, community, (1,3,6,1,2,1,1,1), 1)
+    os = (1, 3, 6, 1, 2, 1, 1, 1)  # HOST-RESOURCE-MIB
+    data = parent.get_snmp_data(host, community, (1, 3, 6, 1, 2, 1, 1, 1), 1)
 
     if data:
         return str(data[0][2])

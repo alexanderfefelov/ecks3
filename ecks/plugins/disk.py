@@ -16,7 +16,24 @@
    limitations under the License.
 """
 
-from pprint import pprint
+""" This is a plugin to be loaded by Ecks
+
+return an array of tuples containing (type, path, size in bytes, used bytes) for each block device
+
+type is an integer which is one of the following:
+    hrStorageOther	        = 1
+    hrStorageRam	        = 2
+    hrStorageVirtualMemory	= 3
+    hrStorageFixedDisk	    = 4
+    hrStorageRemovableDisk	= 5
+    hrStorageFloppyDisk	    = 6
+    hrStorageCompactDisc	= 7
+    hrStorageRamDisk	    = 8
+    hrStorageFlashMemory	= 9
+    hrStorageNetworkDisk	= 10
+
+"""
+
 
 def _calc_size(block_size, block_count):
     if block_size and block_count:
@@ -26,23 +43,7 @@ def _calc_size(block_size, block_count):
 
 
 def get_disk(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    return an array of tuples containing (type, path, size in bytes, used bytes) for each block device
-
-    type is an integer which is one of the following:
-        hrStorageOther	        = 1
-        hrStorageRam	        = 2
-        hrStorageVirtualMemory	= 3
-        hrStorageFixedDisk	    = 4
-        hrStorageRemovableDisk	= 5
-        hrStorageFloppyDisk	    = 6
-        hrStorageCompactDisc	= 7
-        hrStorageRamDisk	    = 8
-        hrStorageFlashMemory	= 9
-        hrStorageNetworkDisk	= 10
-    """
-    disks = (1,3,6,1,2,1,25,2,3,1) # HOST-RESOURCES-MIB
+    disks = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB
     data = parent.get_snmp_data(host, community, disks, 1)
 
     # We need to work this out the long was as there are cases where size or used is not supplied
@@ -63,4 +64,3 @@ def get_disk(parent, host, community):
         ))
 
     return formatted
-

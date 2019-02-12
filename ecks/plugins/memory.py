@@ -17,13 +17,15 @@
 
 """
 
+""" This is a plugin to be loaded by Ecks
+
+return a tuple containing (total_swap, avail_swap, total_real, avail_real, mem_buffer, mem_cached). Values are in kiloBytes
+
+"""
+
+
 def get_memory(parent, host, community):
-    """ This is a plugin to be loaded by Ecks
-
-    return a tuple containing (total_swap, avail_swap, total_real, avail_real, mem_buffer, mem_cached). Values are in kiloBytes
-
-    """
-    memory = (1,3,6,1,4,1,2021,4) # UCD-SNMP-MIB
+    memory = (1, 3, 6, 1, 4, 1, 2021, 4)  # UCD-SNMP-MIB
     data = parent.get_snmp_data(host, community, memory, 1)
 
     if data:
