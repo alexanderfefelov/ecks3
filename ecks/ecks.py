@@ -1,5 +1,6 @@
 """
    Copyright 2011-2015 Chris Read (chris.read@gmail.com)
+   Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
