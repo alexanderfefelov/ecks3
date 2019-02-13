@@ -60,8 +60,8 @@ class Ecks:
                 self.logger.debug("Loading file: %s" % os.path.join(plugin_dir, plugin))
                 plugin_name = plugin[:-3]
                 try:
-                    exec("import plugins.%s" % plugin_name)
-                    exec("self.get_%(func)s = types.MethodType(plugins.%(func)s.get_%(func)s, self)" % {"func": plugin_name})
+                    exec("import ecks3.plugins.%s" % plugin_name)
+                    exec("self.get_%(func)s = types.MethodType(ecks3.plugins.%(func)s.get_%(func)s, self)" % {"func": plugin_name})
                     self.logger.debug("Registered plugin: %s" % plugin_name)
                     self.plugins += [plugin_name]
                 except AttributeError:
