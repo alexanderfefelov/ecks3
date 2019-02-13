@@ -39,10 +39,10 @@ except ImportError:
     print("ERROR: Unable to load 'pysnmp' module.")
 
 
-class Ecks():
+class Ecks:
     plugins = []
 
-    def __init__(self, timeout = 1):
+    def __init__(self, timeout=1):
         self.timeout = timeout
         if logging._handlers == {}:
             logging.basicConfig()
@@ -63,8 +63,8 @@ class Ecks():
                     exec("self.get_%(func)s = types.MethodType(plugins.%(func)s.get_%(func)s, self)" % {"func": plugin_name})
                     self.logger.debug("Registered plugin: %s" % plugin_name)
                     self.plugins += [plugin_name]
-                except AttributeError as e:
-                    self.logger.warn("Invalid plugin: %s" % plugin_name)
+                except AttributeError:
+                    self.logger.warning("Invalid plugin: %s" % plugin_name)
 
     def _extract(self, data, value_type, filt):
         """
@@ -82,9 +82,9 @@ class Ecks():
         return [value_type(value) for (oid, (data_type, index), value) in data if data_type == filt]
 
     def _build_answer(self, *answers):
-        return tuple([ a for a in answers ])
+        return tuple([a for a in answers])
 
-    def get_snmp_data(self, host, community, query_oid, query_oid_only = None):
+    def get_snmp_data(self, host, community, query_oid, query_oid_only=None):
         """
         Get data from server using a Bulk SNMP Get.
 
@@ -108,7 +108,8 @@ class Ecks():
             self.logger.error(error_indication)
         elif error_status:
             self.logger.error(
-                '%s at %s\n' % (error_status.prettyPrint(), error_index and var_binds_list[int(error_index) - 1] or '?'))
+                '%s at %s\n' % (error_status.prettyPrint(),
+                                error_index and var_binds_list[int(error_index) - 1] or '?'))
 
         prefix = len(query_oid)
         data = [(tuple(oid)[:prefix], tuple(oid)[prefix:], val) for [(oid, val)] in var_binds_list]
@@ -117,7 +118,7 @@ class Ecks():
 
         return data
 
-    def get_data(self, host, comm, plugin):
+    def get_data(self, host, community, plugin):
         """
         Utility method to interface with plugins by name
 
@@ -130,4 +131,4 @@ class Ecks():
         plugin
             The plugin to call
         """
-        return eval("self.get_%s(host, comm)" % plugin)
+        return eval("self.get_%s(host, community)" % plugin)

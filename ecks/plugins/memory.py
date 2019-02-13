@@ -19,7 +19,7 @@
 
 """ This is a plugin to be loaded by Ecks
 
-return a tuple containing (total_swap, avail_swap, total_real, avail_real, mem_buffer, mem_cached). Values are in kiloBytes
+return a tuple containing (total_swap, avail_swap, total_real, avail_real, mem_buffer, mem_cached). Values are in kilobytes
 
 """
 
@@ -29,7 +29,8 @@ def get_memory(parent, host, community):
     data = parent.get_snmp_data(host, community, memory, 1)
 
     if data:
-        return map(parent._build_answer,
+        return map(
+            parent._build_answer,
             parent._extract(data, int, 3),
             parent._extract(data, int, 4),
             parent._extract(data, int, 5),

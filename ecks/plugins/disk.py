@@ -51,7 +51,7 @@ def get_disk(parent, host, community):
     formatted = []
 
     for i in [t for t in parent._extract(data, int, 1)]:
-        details.append([ value for (oid, (data_type, index), value) in data if index == i  and data_type != 1])
+        details.append([value for (oid, (data_type, index), value) in data if index == i and data_type != 1])
 
     for dev in details:
         if len(dev) != 5:
