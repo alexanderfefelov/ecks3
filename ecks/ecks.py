@@ -86,7 +86,7 @@ class Ecks:
 
     def get_snmp_data(self, host, port, community, query_oid, query_oid_only=None):
         """
-        Get data from server using a Bulk SNMP Get.
+        Get data from server using a Bulk SNMP Get
 
         host
             Hostname of the machine you want to pull the data from
@@ -96,7 +96,7 @@ class Ecks:
 
         query_oid
             If set to something that evaluates as True then it will only return
-            results that match the query oid. By default it will return everything.
+            results that match the query oid. By default it will return everything
         """
         error_indication, error_status, error_index, var_binds_list = cmdgen.CommandGenerator().bulkCmd(
             cmdgen.CommunityData(host, community),

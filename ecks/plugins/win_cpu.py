@@ -19,7 +19,7 @@
 
 """ This is a plugin to be loaded by Ecks
 
-return a tuple containing cpu_load for each CPU found.
+return a tuple containing cpu_load for each CPU found
 
 """
 

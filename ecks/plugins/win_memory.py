@@ -29,7 +29,7 @@ def __calc_size(block_size, block_count):
 
 
 def get_win_memory(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB::hrStorageEntry ???
+    oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB::hrStorageEntry ??? TODO
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if not data:
