@@ -33,17 +33,13 @@ return a list containing [
 """
 
 
-def ip_addr(data):
-    return ".".join([str(a) for a in data])
-
-
-def get_tcpstats(parent, host, port, community):
+def get_tcp_stats(parent, host, port, community):
     ids = [7, 8, 9, 10, 11, 12, 14, 15]
 
     stats = []
     for x in ids:
         try:
-            stats = stats + [int(parent.get_snmp_data(host, port, community, (1, 3, 6, 1, 2, 1, 6, x), 1)[0][2])]
+            stats = stats + [int(parent.get_snmp_data(host, port, community, (1, 3, 6, 1, 2, 1, 6, x), 1)[0][2])]  # TCP-MIB::tcp
         except:
             return
 

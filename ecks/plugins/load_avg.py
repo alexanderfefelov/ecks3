@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect TCP connection information
+   Ecks plugin to collect system load average
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
 
@@ -19,30 +19,24 @@
 
 """ This is a plugin to be loaded by Ecks
 
-return a list of tuples containing (local_addr, local_port, rem_addr, rem_port, state)
+return an array of tuples containing (name, value) for each measured interval (normally 1, 5 and 15 minutes)
 
-state is an integer which represents the following:
-    closed(1),
-    listen(2),
-    synSent(3),
-    synReceived(4),
-    established(5),
-    finWait1(6),
-    finWait2(7),
-    closeWait(8),
-    lastAck(9),
-    closing(10),
-    timeWait(11),
-    deleteTCB(12)
+name is the description of the interval returned by the host
+
+value is a python Decimal (see decimal module) containing the floating point representation of the load average
 
 """
 
 
-def ip_addr(data):
-    return ".".join([str(a) for a in data])
+def get_load_avg(parent, host, port, community):
+    from decimal import Decimal
 
-
-def get_tcpconn(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 6, 13, 1, 1)  # TCP-MIB
+    oid = (1, 3, 6, 1, 4, 1, 2021, 10, 1)  # UCD-SNMP-MIB::laEntry
     data = parent.get_snmp_data(host, port, community, oid, 1)
-    return [(ip_addr(addrs[:4]), addrs[4], ip_addr(addrs[5:9]), addrs[9], int(state)) for (oid, addrs, state) in data]
+    return list(
+        map(
+            parent._build_answer,
+            parent._extract(data, str, 2),
+            list(map(Decimal, parent._extract(data, str, 3))),
+        )
+    )

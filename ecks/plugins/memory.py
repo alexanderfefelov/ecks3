@@ -25,7 +25,7 @@ return a tuple containing (total_swap, avail_swap, total_real, avail_real, mem_b
 
 
 def get_memory(parent, port, host, community):
-    oid = (1, 3, 6, 1, 4, 1, 2021, 4)  # UCD-SNMP-MIB
+    oid = (1, 3, 6, 1, 4, 1, 2021, 4)  # UCD-SNMP-MIB::memory
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if data:

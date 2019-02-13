@@ -25,7 +25,7 @@ return a tuple containing (raw_cpu_user, raw_cpu_sys, raw_cpu_idle) ticks
 
 
 def get_raw_cpu(parent, host, port, community):
-    oid = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB
+    oid = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB::systemStats
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if data:

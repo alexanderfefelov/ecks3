@@ -24,8 +24,8 @@ return a tuple containing cpu_load for each CPU found.
 """
 
 
-def get_wincpu(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 25, 3, 3, 1, 2)  # HOST-RESOURCES-MIB
+def get_win_cpu(parent, host, port, community):
+    oid = (1, 3, 6, 1, 2, 1, 25, 3, 3, 1, 2)  # HOST-RESOURCES-MIB::hrProcessorLoad
     data = parent.get_snmp_data(host, port, community, oid, 1)
     if data:
         return tuple([int(load) for (oid, num, load) in data])

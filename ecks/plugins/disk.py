@@ -35,15 +35,8 @@ type is an integer which is one of the following:
 """
 
 
-def _calc_size(block_size, block_count):
-    if block_size and block_count:
-        return block_size * block_count
-    else:
-        return -1
-
-
 def get_disk(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB
+    oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB::hrStorageEntry
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     # We need to work this out the long was as there are cases where size or used is not supplied

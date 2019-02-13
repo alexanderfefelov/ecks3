@@ -32,7 +32,7 @@ Most common type is 6 (ethernet)
 
 
 def get_nic(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 2, 2, 1)  # IF-MIB
+    oid = (1, 3, 6, 1, 2, 1, 2, 2, 1)  # IF-MIB::ifEntry
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     return list(

@@ -32,11 +32,10 @@ Note: This plugin now corrects the bad uptime value returned in
 """
 
 
-import re
-
-
 def get_uptime(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 25, 1, 1)  # HOST-RESOURCE-MIB
+    import re
+
+    oid = (1, 3, 6, 1, 2, 1, 25, 1, 1)  # HOST-RESOURCE-MIB::hrSystemUptime
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if data:

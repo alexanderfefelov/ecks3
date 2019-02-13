@@ -24,12 +24,12 @@ return a tuple containing (total_swap, avail_swap, total_real, avail_real). Valu
 """
 
 
-def _calc_size(block_size, block_count):
+def __calc_size(block_size, block_count):
     return block_size * block_count
 
 
-def get_winmemory(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB
+def get_win_memory(parent, host, port, community):
+    oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB::hrStorageEntry ???
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if not data:
@@ -40,8 +40,8 @@ def get_winmemory(parent, host, port, community):
             parent._build_answer,
             [t[-1] for t in parent._extract(data, tuple, 2)],
             parent._extract(data, str, 3),
-            list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 5))),
-            list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 6)))
+            list(map(__calc_size, parent._extract(data, int, 4), parent._extract(data, int, 5))),
+            list(map(__calc_size, parent._extract(data, int, 4), parent._extract(data, int, 6)))
         )
     )
 
