@@ -43,7 +43,7 @@ def get_tcpstats(parent, host, community):
     stats = []
     for id in ids:
         try:
-            stats = stats + [long(parent.get_snmp_data(host, community, (1, 3, 6, 1, 2, 1, 6, id), 1)[0][2])]
+            stats = stats + [int(parent.get_snmp_data(host, community, (1, 3, 6, 1, 2, 1, 6, id), 1)[0][2])]
         except:
             return
 

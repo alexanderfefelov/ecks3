@@ -34,7 +34,7 @@ from decimal import Decimal
 def get_loadavg(parent, host, community):
     load = (1, 3, 6, 1, 4, 1, 2021, 10, 1)  # UCD-SNMP-MIB
     data = parent.get_snmp_data(host, community, load, 1)
-    return map(parent._build_answer,
+    return list(map(parent._build_answer,
         parent._extract(data, str, 2),
-        map(Decimal, parent._extract(data, str, 3)),
-    )
+        list(map(Decimal, parent._extract(data, str, 3))),
+    ))

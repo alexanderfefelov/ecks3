@@ -24,7 +24,7 @@ import ecks
 required_python_version = '2.6'
 
 if sys.version < required_python_version:
-  print "Ecks requires python %s or later, you have %s" % (required_python_version, sys.version)
+  print("Ecks requires python %s or later, you have %s" % (required_python_version, sys.version))
   sys.exit(1)
 
 setup(

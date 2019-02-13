@@ -31,4 +31,4 @@ __version__ = '0.11-dev'
 __author__ = 'Chris Read <chris.read@gmail.com>'
 
 
-from ecks import Ecks
+from .ecks import Ecks

@@ -35,25 +35,25 @@ def get_nic(parent, host, community):
     nics = (1, 3, 6, 1, 2, 1, 2, 2, 1)  # IF-MIB
     data = parent.get_snmp_data(host, community, nics, 1)
 
-    return map(parent._build_answer,
+    return list(map(parent._build_answer,
         parent._extract(data, str, 2), # Name
         parent._extract(data, int, 3), # ifType
         parent._extract(data, int, 4), # MTU
-        parent._extract(data, long, 5), # Speed
+        parent._extract(data, int, 5), # Speed
         parent._extract(data, str, 6), # MAC
         parent._extract(data, int, 7), # Admin Status
         parent._extract(data, int, 8), # Oper Status
         parent._extract(data, int, 9), # Last Change
-        parent._extract(data, long, 10), # In Bytes
-        parent._extract(data, long, 11), # In Unicast Pkts
-        parent._extract(data, long, 12), # In Not Unicast Pkts
-        parent._extract(data, long, 13), # In Discards 
-        parent._extract(data, long, 14), # In Errors
-        parent._extract(data, long, 15), # In Unknown Protocols
-        parent._extract(data, long, 16), # Out Bytes
-        parent._extract(data, long, 17), # Out Unicast Pkts
-        parent._extract(data, long, 18), # Out Not Unicast Pkts
-        parent._extract(data, long, 19), # Out Discards
-        parent._extract(data, long, 20), # Out Errors
-        parent._extract(data, long, 21), # Out Queue Length
-    )
+        parent._extract(data, int, 10), # In Bytes
+        parent._extract(data, int, 11), # In Unicast Pkts
+        parent._extract(data, int, 12), # In Not Unicast Pkts
+        parent._extract(data, int, 13), # In Discards 
+        parent._extract(data, int, 14), # In Errors
+        parent._extract(data, int, 15), # In Unknown Protocols
+        parent._extract(data, int, 16), # Out Bytes
+        parent._extract(data, int, 17), # Out Unicast Pkts
+        parent._extract(data, int, 18), # Out Not Unicast Pkts
+        parent._extract(data, int, 19), # Out Discards
+        parent._extract(data, int, 20), # Out Errors
+        parent._extract(data, int, 21), # Out Queue Length
+    ))

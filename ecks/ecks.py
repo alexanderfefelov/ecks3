@@ -21,7 +21,7 @@ import sys
 try:
     from pysnmp.entity.rfc3413.oneliner import cmdgen
 except ImportError:
-    print "ERROR: Unable to load 'pysnmp' module."
+    print("ERROR: Unable to load 'pysnmp' module.")
 
 
 class Ecks():

@@ -35,12 +35,12 @@ def get_winmemory(parent, host, community):
     if not data:
         return
 
-    all_blocks = map(parent._build_answer,
+    all_blocks = list(map(parent._build_answer,
         [t[-1] for t in parent._extract(data, tuple, 2)],
         parent._extract(data, str, 3),
-        map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 5)),
-        map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 6))
-    )
+        list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 5))),
+        list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 6)))
+    ))
 
     total_swap = 0
     avail_swap = 0
