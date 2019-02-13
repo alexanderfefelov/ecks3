@@ -133,4 +133,4 @@ class Ecks:
         plugin
             The plugin to call
         """
-        return eval("self.get_%s(host, port, community)" % plugin)
+        return eval("self.get_{0}('{1}', {2}, '{3}')".format(plugin, host, port, community))
