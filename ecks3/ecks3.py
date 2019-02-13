@@ -55,6 +55,7 @@ class Ecks:
         Walk through our plugins and wire their get_ methods 
         """
         plugin_dir = os.path.join(os.path.dirname(__file__), "plugins")
+        exec("import types")
         for plugin in os.listdir(plugin_dir):
             if plugin.endswith(".py") and (plugin != "__init__.py"):
                 self.logger.debug("Loading file: %s" % os.path.join(plugin_dir, plugin))
@@ -132,4 +133,4 @@ class Ecks:
         plugin
             The plugin to call
         """
-        return eval("self.get_%s(host, port, community)" % plugin, host, port, community)
+        return eval("self.get_%s(host, port, community)" % plugin)
