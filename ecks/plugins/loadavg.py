@@ -31,9 +31,9 @@ value is a python Decimal (see decimal module) containing the floating point rep
 from decimal import Decimal
 
 
-def get_loadavg(parent, host, community):
+def get_loadavg(parent, host, port, community):
     oid = (1, 3, 6, 1, 4, 1, 2021, 10, 1)  # UCD-SNMP-MIB
-    data = parent.get_snmp_data(host, community, oid, 1)
+    data = parent.get_snmp_data(host, port, community, oid, 1)
     return list(
         map(
             parent._build_answer,

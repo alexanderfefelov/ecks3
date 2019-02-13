@@ -24,9 +24,9 @@ return the host operating system info
 """
 
 
-def get_os(parent, host, community):
+def get_os(parent, host, port, community):
     oid = (1, 3, 6, 1, 2, 1, 1, 1)  # HOST-RESOURCE-MIB
-    data = parent.get_snmp_data(host, community, oid, 1)
+    data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if data:
         return str(data[0][2])

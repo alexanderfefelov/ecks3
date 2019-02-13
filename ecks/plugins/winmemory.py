@@ -28,9 +28,9 @@ def _calc_size(block_size, block_count):
     return block_size * block_count
 
 
-def get_winmemory(parent, host, community):
+def get_winmemory(parent, host, port, community):
     oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB
-    data = parent.get_snmp_data(host, community, oid, 1)
+    data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if not data:
         return

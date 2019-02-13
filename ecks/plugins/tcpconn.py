@@ -42,7 +42,7 @@ def ip_addr(data):
     return ".".join([str(a) for a in data])
 
 
-def get_tcpconn(parent, host, community):
+def get_tcpconn(parent, host, port, community):
     oid = (1, 3, 6, 1, 2, 1, 6, 13, 1, 1)  # TCP-MIB
-    data = parent.get_snmp_data(host, community, oid, 1)
+    data = parent.get_snmp_data(host, port, community, oid, 1)
     return [(ip_addr(addrs[:4]), addrs[4], ip_addr(addrs[5:9]), addrs[9], int(state)) for (oid, addrs, state) in data]

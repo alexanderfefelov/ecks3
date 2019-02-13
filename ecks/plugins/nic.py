@@ -31,9 +31,9 @@ Most common type is 6 (ethernet)
 """
 
 
-def get_nic(parent, host, community):
+def get_nic(parent, host, port, community):
     oid = (1, 3, 6, 1, 2, 1, 2, 2, 1)  # IF-MIB
-    data = parent.get_snmp_data(host, community, oid, 1)
+    data = parent.get_snmp_data(host, port, community, oid, 1)
 
     return list(
         map(

@@ -84,7 +84,7 @@ class Ecks:
     def _build_answer(self, *answers):
         return tuple([a for a in answers])
 
-    def get_snmp_data(self, host, community, query_oid, query_oid_only=None):
+    def get_snmp_data(self, host, port, community, query_oid, query_oid_only=None):
         """
         Get data from server using a Bulk SNMP Get.
 
@@ -100,7 +100,7 @@ class Ecks:
         """
         error_indication, error_status, error_index, var_binds_list = cmdgen.CommandGenerator().bulkCmd(
             cmdgen.CommunityData(host, community),
-            cmdgen.UdpTransportTarget((host, 161), timeout=self.timeout),
+            cmdgen.UdpTransportTarget((host, port), timeout=self.timeout),
             0, 25, query_oid
         )
 
@@ -118,7 +118,7 @@ class Ecks:
 
         return data
 
-    def get_data(self, host, community, plugin):
+    def get_data(self, host, port, community, plugin):
         """
         Utility method to interface with plugins by name
 
@@ -131,4 +131,4 @@ class Ecks:
         plugin
             The plugin to call
         """
-        return eval("self.get_%s(host, community)" % plugin, host, community)
+        return eval("self.get_%s(host, port, community)" % plugin, host, port, community)

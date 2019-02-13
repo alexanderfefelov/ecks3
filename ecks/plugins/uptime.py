@@ -35,13 +35,13 @@ Note: This plugin now corrects the bad uptime value returned in
 import re
 
 
-def get_uptime(parent, host, community):
+def get_uptime(parent, host, port, community):
     oid = (1, 3, 6, 1, 2, 1, 25, 1, 1)  # HOST-RESOURCE-MIB
-    data = parent.get_snmp_data(host, community, oid, 1)
+    data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if data:
         # Got some data, let's check the OS now...   
-        os = parent.get_os(host, community)
+        os = parent.get_os(host, port, community)
         # If it's Windows, check the build...
         if ("Windows" in os) and (int(re.search("\(Build (\d+)", os).groups()[0]) < 7600):
             return int(data[0][2]) / 10

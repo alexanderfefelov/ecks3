@@ -42,9 +42,9 @@ def _calc_size(block_size, block_count):
         return -1
 
 
-def get_disk(parent, host, community):
+def get_disk(parent, host, port, community):
     oid = (1, 3, 6, 1, 2, 1, 25, 2, 3, 1)  # HOST-RESOURCES-MIB
-    data = parent.get_snmp_data(host, community, oid, 1)
+    data = parent.get_snmp_data(host, port, community, oid, 1)
 
     # We need to work this out the long was as there are cases where size or used is not supplied
     details = []
