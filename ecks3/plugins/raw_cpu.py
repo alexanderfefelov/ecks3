@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect system load average
+   Ecks3 plugin to collect CPU usage information
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -18,26 +18,20 @@
 
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
-return an array of tuples containing (name, value) for each measured interval (normally 1, 5 and 15 minutes)
-
-name is the description of the interval returned by the host
-
-value is a python Decimal (see decimal module) containing the floating point representation of the load average
+return a tuple containing (raw_cpu_user, raw_cpu_sys, raw_cpu_idle) ticks
 
 """
 
 
-def get_load_avg(parent, host, port, community):
-    from decimal import Decimal
-
-    oid = (1, 3, 6, 1, 4, 1, 2021, 10, 1)  # UCD-SNMP-MIB::laEntry
+def get_raw_cpu(parent, host, port, community):
+    oid = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB::systemStats
     data = parent.get_snmp_data(host, port, community, oid, 1)
-    return list(
-        map(
-            parent._build_answer,
-            parent._extract(data, str, 2),
-            list(map(Decimal, parent._extract(data, str, 3))),
+
+    if data:
+        return (
+            parent._extract(data, int, 50)[0],
+            parent._extract(data, int, 52)[0],
+            parent._extract(data, int, 53)[0],
         )
-    )

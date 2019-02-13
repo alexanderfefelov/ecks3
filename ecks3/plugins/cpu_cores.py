@@ -1,7 +1,7 @@
 """
-   Ecks plugin to collect CPU usage information
+   Ecks3 plugin to collect CPU usage information
 
-   Copyright 2011 Chris Read (chris.read@gmail.com)
+   Copyright 2015 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,20 +18,18 @@
 
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
-return a tuple containing (cpu_user, cpu_sys, cpu_idle) in percent
+return a tuple containing average CPU load per core for the last minute
 
 """
 
 
-def get_cpu(parent, host, port, community):
-    oid = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB::systemStats
+def get_cpu_cores(parent, host, port, community):
+    oid = (1, 3, 6, 1, 2, 1, 25, 3, 3, 1, 2)  # HOST-RESOURCES-MIB::hrProcessorLoad
     data = parent.get_snmp_data(host, port, community, oid, 1)
 
     if data:
-        return (
-            parent._extract(data, int, 9)[0],
-            parent._extract(data, int, 10)[0],
-            parent._extract(data, int, 11)[0],
+        return tuple(
+            [int(v) for (o, d, v) in data]
         )

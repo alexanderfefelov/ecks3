@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect system uptime
+   Ecks3 plugin to collect system uptime
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -18,7 +18,7 @@
 
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
 return the number of TimeTicks (100ths of a second) since the system was booted
 

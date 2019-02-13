@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect CPU usage information
+   Ecks3 plugin to collect system memory usage information
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -18,15 +18,24 @@
 
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
-return a tuple containing cpu_load for each CPU found
+return a tuple containing (total_swap, avail_swap, total_real, avail_real, mem_buffer, mem_cached). Values are in kilobytes
 
 """
 
 
-def get_win_cpu(parent, host, port, community):
-    oid = (1, 3, 6, 1, 2, 1, 25, 3, 3, 1, 2)  # HOST-RESOURCES-MIB::hrProcessorLoad
+def get_memory(parent, port, host, community):
+    oid = (1, 3, 6, 1, 4, 1, 2021, 4)  # UCD-SNMP-MIB::memory
     data = parent.get_snmp_data(host, port, community, oid, 1)
+
     if data:
-        return tuple([int(load) for (oid, num, load) in data])
+        return map(
+            parent._build_answer,
+            parent._extract(data, int, 3),
+            parent._extract(data, int, 4),
+            parent._extract(data, int, 5),
+            parent._extract(data, int, 6),
+            parent._extract(data, int, 14),
+            parent._extract(data, int, 15),
+        )[0]

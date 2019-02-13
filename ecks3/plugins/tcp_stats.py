@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect TCP stack statistics
+   Ecks3 plugin to collect TCP stack statistics
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -18,7 +18,7 @@
 
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
 return a list containing [
     tcpAttemptFails,    - http://www.oid-info.com/get/1.3.6.1.2.1.6.7

@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect system memory usage information
+   Ecks3 plugin to collect system memory usage information
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -18,7 +18,7 @@
 
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
 return a tuple containing (total_swap, avail_swap, total_real, avail_real). Values are in kilobytes
 

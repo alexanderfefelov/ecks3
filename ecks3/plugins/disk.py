@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect disk usage information
+   Ecks3 plugin to collect disk usage information
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -17,7 +17,7 @@
    limitations under the License.
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
 return an array of tuples containing (type, path, size in bytes, used bytes) for each block device
 

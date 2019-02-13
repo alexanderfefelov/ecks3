@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect network interface information
+   Ecks3 plugin to collect network interface information
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -17,7 +17,7 @@
    limitations under the License.
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
 Info on the data returned is available at http://www.oidview.com/mibs/0/IF-MIB.html
 

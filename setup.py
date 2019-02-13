@@ -1,5 +1,5 @@
 """
-Installs ecks using setuputils
+Installs Ecks3 using setuputils
 
 Run:
 
@@ -9,7 +9,7 @@ to install this package using this script.
 
 To install the latest public release use run:
 
-  pip install ecks
+  pip install ecks3
 """
 
 
@@ -32,7 +32,7 @@ if sys.version < required_python_version:
 
 setup(
     name="Ecks3",
-    version="0.11-dev",
+    version="0.1.0-SNAPSHOT",
     description="Easy access to SNMP data",
     long_description="A simple way to get data out of a remote machine using SNMP without having to deal with a single MIB or OID.",
     classifiers=[
@@ -46,8 +46,8 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: System :: Monitoring"
     ],
-    author="Chris Read",
-    author_email="chris.read@gmail.com",
+    author="Alexander Fefelov",
+    author_email="alexanderfefelov@yandex.ru",
     url="https://github.com/alexanderfefelov/ecks3",
     license="Apache 2.0",
     packages=find_packages(),

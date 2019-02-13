@@ -1,5 +1,5 @@
 """
-   Ecks plugin to collect TCP connection information
+   Ecks3 plugin to collect TCP connection information
 
    Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
@@ -18,7 +18,7 @@
 
 """
 
-""" This is a plugin to be loaded by Ecks
+""" This is a plugin to be loaded by Ecks3
 
 return a list of tuples containing (local_addr, local_port, rem_addr, rem_port, state)
 

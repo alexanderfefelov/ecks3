@@ -1,5 +1,5 @@
 *.pyc
 .idea/
-Ecks.egg-info/
+Ecks3.egg-info/
 build/
 dist/

@@ -1,17 +1,7 @@
 """
-   A simple way to get data out of a remote machine using SNMP without having to deal with a single MIB or OID
+   Ecks3 plugin to collect CPU usage information
 
-   The goal of Ecks is simple - make it really easy to get get any data
-   from an SNMP service.
-
-   Ecks is made up of a core class that will collect data via SNMP,
-   and a set of plugins that contain the OID and the code needed to
-   transform the results from nested OID's to usable data.
-
-   See help(ecks.Ecks) for more info
-
-
-   Copyright 2011-2015 Chris Read (chris.read@gmail.com)
+   Copyright 2011 Chris Read (chris.read@gmail.com)
    Copyright 2019 Alexander Fefelov <alexanderfefelov@yandex.ru>
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,4 +15,23 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
 """
+
+""" This is a plugin to be loaded by Ecks3
+
+return a tuple containing (cpu_user, cpu_sys, cpu_idle) in percent
+
+"""
+
+
+def get_cpu(parent, host, port, community):
+    oid = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB::systemStats
+    data = parent.get_snmp_data(host, port, community, oid, 1)
+
+    if data:
+        return (
+            parent._extract(data, int, 9)[0],
+            parent._extract(data, int, 10)[0],
+            parent._extract(data, int, 11)[0],
+        )
