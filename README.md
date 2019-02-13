@@ -46,7 +46,7 @@ that can access the host as well.
 
 ## Usage
 
-```python
+```
 >>> import ecks
 >>> e = ecks.Ecks()
 >>> e.get_data('127.0.0.1', 'public', 'disk')

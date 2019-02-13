@@ -36,7 +36,7 @@ import os
 try:
     from pysnmp.entity.rfc3413.oneliner import cmdgen
 except ImportError:
-    print("ERROR: Unable to load 'pysnmp' module.")
+    print("ERROR: Unable to load 'pysnmp' module")
 
 
 class Ecks:
@@ -131,4 +131,4 @@ class Ecks:
         plugin
             The plugin to call
         """
-        return eval("self.get_%s(host, community)" % plugin)
+        return eval("self.get_%s(host, community)" % plugin, host, community)

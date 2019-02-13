@@ -31,8 +31,8 @@ status is an int which maps to:
 
 
 def get_processes(parent, host, community):
-    procs = (1, 3, 6, 1, 2, 1, 25, 4, 2, 1)  # HOST-RESOURCES-MIB
-    data = parent.get_snmp_data(host, community, procs, 1)
+    oid = (1, 3, 6, 1, 2, 1, 25, 4, 2, 1)  # HOST-RESOURCES-MIB
+    data = parent.get_snmp_data(host, community, oid, 1)
     return list(
         map(
             parent._build_answer,

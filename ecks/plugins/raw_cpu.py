@@ -25,8 +25,8 @@ return a tuple containing (raw_cpu_user, raw_cpu_sys, raw_cpu_idle) ticks
 
 
 def get_raw_cpu(parent, host, community):
-    cpu = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB
-    data = parent.get_snmp_data(host, community, cpu, 1)
+    oid = (1, 3, 6, 1, 4, 1, 2021, 11)  # UCD-SNMP-MIB
+    data = parent.get_snmp_data(host, community, oid, 1)
 
     if data:
         return (

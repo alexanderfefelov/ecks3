@@ -36,8 +36,8 @@ import re
 
 
 def get_uptime(parent, host, community):
-    uptime = (1, 3, 6, 1, 2, 1, 25, 1, 1)  # HOST-RESOURCE-MIB
-    data = parent.get_snmp_data(host, community, uptime, 1)
+    oid = (1, 3, 6, 1, 2, 1, 25, 1, 1)  # HOST-RESOURCE-MIB
+    data = parent.get_snmp_data(host, community, oid, 1)
 
     if data:
         # Got some data, let's check the OS now...   

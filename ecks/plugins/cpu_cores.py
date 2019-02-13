@@ -25,8 +25,8 @@ return a tuple containing average CPU load per core for the last minute
 
 
 def get_cpu_cores(parent, host, community):
-    cores = (1, 3, 6, 1, 2, 1, 25, 3, 3, 1, 2)  # HOST-RESOURCES-MIB::hrProcessorLoad
-    data = parent.get_snmp_data(host, community, cores, 1)
+    oid = (1, 3, 6, 1, 2, 1, 25, 3, 3, 1, 2)  # HOST-RESOURCES-MIB::hrProcessorLoad
+    data = parent.get_snmp_data(host, community, oid, 1)
 
     if data:
         return tuple(
