@@ -28,4 +28,4 @@ def get_wincpu(parent, host, community):
     cpu = (1, 3, 6, 1, 2, 1, 25, 3, 3, 1, 2)  # HOST-RESOURCES-MIB
     data = parent.get_snmp_data(host, community, cpu, 1)
     if data:
-        return tuple([ int(load) for (oid, num, load) in data ])
+        return tuple([int(load) for (oid, num, load) in data])

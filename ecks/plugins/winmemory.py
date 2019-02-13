@@ -35,23 +35,26 @@ def get_winmemory(parent, host, community):
     if not data:
         return
 
-    all_blocks = list(map(parent._build_answer,
-        [t[-1] for t in parent._extract(data, tuple, 2)],
-        parent._extract(data, str, 3),
-        list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 5))),
-        list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 6)))
-    ))
+    all_blocks = list(
+        map(
+            parent._build_answer,
+            [t[-1] for t in parent._extract(data, tuple, 2)],
+            parent._extract(data, str, 3),
+            list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 5))),
+            list(map(_calc_size, parent._extract(data, int, 4), parent._extract(data, int, 6)))
+        )
+    )
 
     total_swap = 0
     avail_swap = 0
     total_real = 0
     avail_real = 0
 
-    for (type, label, total, used) in all_blocks:
-        if type == 2:
+    for (typ, label, total, used) in all_blocks:
+        if typ == 2:
             total_real = total
             avail_real = total - used
-        elif type == 3:
+        elif typ == 3:
             total_swap = total
             avail_swap = total - used
 

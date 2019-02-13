@@ -51,16 +51,16 @@ def get_disk(parent, host, community):
     formatted = []
 
     for i in [t for t in parent._extract(data, int, 1)]:
-      details.append([ value for (oid, (data_type, index), value) in data if index == i  and data_type != 1])
+        details.append([ value for (oid, (data_type, index), value) in data if index == i  and data_type != 1])
 
     for dev in details:
-      if len(dev) != 5:
-        continue
-      formatted.append((
-        tuple(dev[0])[-1],
-        str(dev[1]),
-        int(dev[2]) * int(dev[3]),
-        int(dev[2]) * int(dev[4])
+        if len(dev) != 5:
+            continue
+        formatted.append((
+            tuple(dev[0])[-1],
+            str(dev[1]),
+            int(dev[2]) * int(dev[3]),
+            int(dev[2]) * int(dev[4])
         ))
 
     return formatted

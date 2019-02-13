@@ -34,7 +34,7 @@ return a list containing [
 
 
 def ip_addr(data):
-    return ".".join([ str(a) for a in data ])
+    return ".".join([str(a) for a in data])
 
 
 def get_tcpstats(parent, host, community):

@@ -14,10 +14,25 @@
    limitations under the License.
 """
 
+"""
+A simple way to get data out of a remote machine using SNMP without having to deal with a single MIB or OID
+
+Simple Usage:
+
+>>> import ecks
+>>> e = ecks.Ecks()
+>>> e.get_data('127.0.0.1', 'public', 'disk')
+[(2, 'Physical memory', 8589934592, 5169360896), (3, 'Swap space', 134213632, 45056), (4, '/', 290984034304, 243201781760)]
+>>> e.get_data('127.0.0.1', 'public', 'cpu')
+(21, 9, 68)
+>>> e.get_data('127.0.0.1', 'public', 'uptime')
+18879153
+
+"""
+
+
 import logging
 import os
-import types
-import sys
 try:
     from pysnmp.entity.rfc3413.oneliner import cmdgen
 except ImportError:
@@ -25,23 +40,6 @@ except ImportError:
 
 
 class Ecks():
-    """
-    A simple way to get data out of a remote machine using SNMP without having to deal with a single MIB or OID
-    
-    Simple Usage:
-
-    >>> import ecks
-    >>> e = ecks.Ecks()
-    >>> e.get_data('127.0.0.1', 'public', 'disk')
-    [(2, 'Physical memory', 8589934592, 5169360896), (3, 'Swap space', 134213632, 45056), (4, '/', 290984034304, 243201781760)]
-    >>> e.get_data('127.0.0.1', 'public', 'cpu')
-    (21, 9, 68)
-    >>> e.get_data('127.0.0.1', 'public', 'uptime')
-    18879153
-
-
-    """
-
     plugins = []
 
     def __init__(self, timeout = 1):
@@ -50,7 +48,6 @@ class Ecks():
             logging.basicConfig()
         self.logger = logging.getLogger(__name__ + ".Ecks")
         self._load_plugins()
-
 
     def _load_plugins(self):
         """
@@ -69,8 +66,7 @@ class Ecks():
                 except AttributeError as e:
                     self.logger.warn("Invalid plugin: %s" % plugin_name)
 
-
-    def _extract(self, data, value_type, filter):
+    def _extract(self, data, value_type, filt):
         """
         Return a filtered list of data that matches the given filter and is coerced to type value_type
 
@@ -80,11 +76,10 @@ class Ecks():
         value_type
             A primitive python type to coerce the value into from the pysnmp type it is
 
-        filter
+        filt
             An integer defining what oid type to return
         """
-        return [ value_type(value) for (oid, (data_type, index), value) in data if data_type == filter ]
-
+        return [value_type(value) for (oid, (data_type, index), value) in data if data_type == filt]
 
     def _build_answer(self, *answers):
         return tuple([ a for a in answers ])
@@ -105,8 +100,9 @@ class Ecks():
         """
         error_indication, error_status, error_index, var_binds_list = cmdgen.CommandGenerator().bulkCmd(
             cmdgen.CommunityData(host, community),
-            cmdgen.UdpTransportTarget((host, 161), timeout = self.timeout),
-            0, 25, query_oid)
+            cmdgen.UdpTransportTarget((host, 161), timeout=self.timeout),
+            0, 25, query_oid
+        )
 
         if error_indication:
             self.logger.error(error_indication)
@@ -115,12 +111,11 @@ class Ecks():
                 '%s at %s\n' % (error_status.prettyPrint(), error_index and var_binds_list[int(error_index) - 1] or '?'))
 
         prefix = len(query_oid)
-        data = [ (tuple(oid)[:prefix], tuple(oid)[prefix:], val) for [(oid, val)] in var_binds_list ]
+        data = [(tuple(oid)[:prefix], tuple(oid)[prefix:], val) for [(oid, val)] in var_binds_list]
         if query_oid_only:
-            data = [ (oid, key, value) for (oid, key, value) in data if oid == query_oid ]
+            data = [(oid, key, value) for (oid, key, value) in data if oid == query_oid]
 
         return data
-
 
     def get_data(self, host, comm, plugin):
         """

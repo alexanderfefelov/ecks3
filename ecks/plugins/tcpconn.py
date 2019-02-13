@@ -39,7 +39,7 @@ state is an integer which represents the following:
 
 
 def ip_addr(data):
-    return ".".join([ str(a) for a in data ])
+    return ".".join([str(a) for a in data])
 
 
 def get_tcpconn(parent, host, community):

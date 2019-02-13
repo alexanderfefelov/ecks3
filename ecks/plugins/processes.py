@@ -33,9 +33,12 @@ status is an int which maps to:
 def get_processes(parent, host, community):
     procs = (1, 3, 6, 1, 2, 1, 25, 4, 2, 1)  # HOST-RESOURCES-MIB
     data = parent.get_snmp_data(host, community, procs, 1)
-    return list(map(parent._build_answer,
-        parent._extract(data, int, 1), # PID
-        parent._extract(data, str, 2), # Process Name
-        parent._extract(data, str, 5), # Arguments
-        parent._extract(data, int, 7), # Status
-    ))
+    return list(
+        map(
+            parent._build_answer,
+            parent._extract(data, int, 1),  # PID
+            parent._extract(data, str, 2),  # Process Name
+            parent._extract(data, str, 5),  # Arguments
+            parent._extract(data, int, 7),  # Status
+        )
+    )

@@ -29,4 +29,6 @@ def get_cpu_cores(parent, host, community):
     data = parent.get_snmp_data(host, community, cores, 1)
 
     if data:
-        return tuple([ int(v) for (o, d, v) in data ])
+        return tuple(
+            [int(v) for (o, d, v) in data]
+        )
