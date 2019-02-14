@@ -27,9 +27,9 @@ def get_uptime(parent, host, port, community):
               Windows builds < 7600 (Win 2008 R2)
 
               See the following for more info:
-                http://fixunix.com/snmp/64367-re-interpreting-hrsystemuptime.html
-                http://forums.cacti.net/about22137.html&highlight=
-                http://web.archiveorange.com/archive/v/WnPpStN7UOuJhcUk5J0T
+                  http://fixunix.com/snmp/64367-re-interpreting-hrsystemuptime.html
+                  http://forums.cacti.net/about22137.html&highlight=
+                  http://web.archiveorange.com/archive/v/WnPpStN7UOuJhcUk5J0T
     """
     import re
 
@@ -40,7 +40,7 @@ def get_uptime(parent, host, port, community):
         # Got some data, let's check the OS now...   
         os = parent.get_os(host, port, community)
         # If it's Windows, check the build...
-        if ("Windows" in os) and (int(re.search("\(Build (\d+)", os).groups()[0]) < 7600):
+        if ("Windows" in os) and (int(re.search(r"\(Build (\d+)", os).groups()[0]) < 7600):
             return int(data[0][2]) / 10
         else:
             return int(data[0][2])

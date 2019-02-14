@@ -18,25 +18,21 @@
 
 import logging
 import os
-try:
-    from pysnmp.entity.rfc3413.oneliner import cmdgen
-except ImportError:
-    print("ERROR: Unable to load 'pysnmp' module")
 
 
 class Ecks:
     """
         A simple way to get data out of a remote machine using SNMP without having to deal with a single MIB or OID
 
-        Simple Usage:
+        Simple usage:
 
             >>> import ecks3
             >>> e = ecks3.Ecks()
-            >>> e.get_data('127.0.0.1', 161, 'public', 'disk')
+            >>> e.get_data("127.0.0.1", 161, "public", "disk")
             [(2, 'Physical memory', 8589934592, 5169360896), (3, 'Swap space', 134213632, 45056), (4, '/', 290984034304, 243201781760)]
-            >>> e.get_data('127.0.0.1', 161, 'public', 'cpu')
+            >>> e.get_data("127.0.0.1", 161, "public", "cpu")
             (21, 9, 68)
-            >>> e.get_data('127.0.0.1', 161, 'public', 'uptime')
+            >>> e.get_data("127.0.0.1", 161, "public", "uptime")
             18879153
     """
 
@@ -102,6 +98,8 @@ class Ecks:
                 If set to something that evaluates as True then it will only return
                 results that match the query oid. By default it will return everything
         """
+        from pysnmp.entity.rfc3413.oneliner import cmdgen
+
         error_indication, error_status, error_index, var_binds_list = cmdgen.CommandGenerator().bulkCmd(
             cmdgen.CommunityData(host, community),
             cmdgen.UdpTransportTarget((host, port), timeout=self.timeout),
@@ -112,8 +110,8 @@ class Ecks:
             self.logger.error(error_indication)
         elif error_status:
             self.logger.error(
-                '%s at %s\n' % (error_status.prettyPrint(),
-                                error_index and var_binds_list[int(error_index) - 1] or '?'))
+                "%s at %s\n" % (error_status.prettyPrint(),
+                                error_index and var_binds_list[int(error_index) - 1] or "?"))
 
         prefix = len(query_oid)
         data = [(tuple(oid)[:prefix], tuple(oid)[prefix:], val) for [(oid, val)] in var_binds_list]

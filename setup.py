@@ -17,14 +17,11 @@ try:
     from setuptools import setup, find_packages
 except:
     from distutils.core import setup, find_packages
-
-
 import sys
+from ecks3 import __version__
 
 
 required_python_version = '3.5'
-
-
 if sys.version < required_python_version:
     print("Ecks3 requires python %s or later, you have %s" % (required_python_version, sys.version))
     sys.exit(1)
@@ -32,7 +29,7 @@ if sys.version < required_python_version:
 
 setup(
     name="Ecks3",
-    version="0.1.0-SNAPSHOT",
+    version=__version__,
     description="Easy access to SNMP data",
     long_description="A simple way to get data out of a remote machine using SNMP without having to deal with a single MIB or OID.",
     classifiers=[
